@@ -82,6 +82,12 @@ push to `main`.
 The generated `apps/creator-web/public/CNAME` is deployed with the site, but
 the custom domain must still be configured in GitHub Pages settings.
 
+The console refuses to run when embedded. For response-level protection, set
+Cloudflare response headers on the proxied creator subdomain after GitHub
+Pages has verified the custom domain: `Content-Security-Policy:
+frame-ancestors 'none'`, `X-Frame-Options: DENY`, `Referrer-Policy:
+no-referrer`, and `X-Content-Type-Options: nosniff`.
+
 ## Verify and recover
 
 Publish a destination through the static creator console with the configured
