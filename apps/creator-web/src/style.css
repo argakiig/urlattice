@@ -1,6 +1,6 @@
 :root {
-  color: #edece5;
-  background: #151711;
+  color: #f2edf8;
+  background: #130d1c;
   font-family: "Lexend", ui-sans-serif, system-ui, sans-serif;
   font-synthesis: none;
 }
@@ -24,8 +24,8 @@ body {
 
 .shell::before {
   background-image:
-    linear-gradient(#34372d 1px, transparent 1px),
-    linear-gradient(90deg, #34372d 1px, transparent 1px);
+    linear-gradient(#3e2d4d 1px, transparent 1px),
+    linear-gradient(90deg, #3e2d4d 1px, transparent 1px);
   background-size: 4rem 4rem;
   content: "";
   inset: 0;
@@ -77,7 +77,7 @@ footer {
 }
 .edition,
 footer {
-  color: #a8aa9f;
+  color: #b8abc5;
   font-family: ui-monospace, monospace;
   font-size: 0.66rem;
   letter-spacing: 0.04em;
@@ -106,7 +106,7 @@ h1 {
   text-align: center;
 }
 .lede {
-  color: #b9bab1;
+  color: #c5b9d0;
   font-size: 1rem;
   line-height: 1.7;
   margin: 2rem 0 2.5rem;
@@ -114,9 +114,9 @@ h1 {
 }
 
 .console {
-  background: #20221b;
-  border: 1px solid #3b3e32;
-  box-shadow: 8px 8px 0 #0d0e0a;
+  background: #21172d;
+  border: 1px solid #4b385b;
+  box-shadow: 8px 8px 0 #0b0711;
   padding: 1.25rem;
 }
 .console-heading {
@@ -128,15 +128,15 @@ label {
   font-weight: 600;
 }
 .protocol {
-  border: 1px solid #525549;
-  color: #c8c9be;
+  border: 1px solid #665078;
+  color: #d2c7db;
   font-family: ui-monospace, monospace;
   font-size: 0.62rem;
   padding: 0.22rem 0.38rem;
 }
 input {
-  background: #171911;
-  border: 1px solid #4a4e3d;
+  background: #160f20;
+  border: 1px solid #59436d;
   border-radius: 0;
   color: #f5f4ed;
   font:
@@ -147,7 +147,7 @@ input {
   width: 100%;
 }
 input::placeholder {
-  color: #767a6a;
+  color: #8e7c9d;
 }
 input:focus {
   border-color: #d4fa64;
@@ -159,7 +159,7 @@ input:focus {
   margin-top: 1rem;
 }
 #status {
-  color: #afb1a4;
+  color: #bcafc8;
   font-size: 0.72rem;
   line-height: 1.5;
   margin: 0;
@@ -172,8 +172,8 @@ button {
   cursor: pointer;
   flex: none;
   font:
-    700 0.76rem Manrope,
-    sans-serif;
+    700 0.76rem "Lexend",
+    ui-sans-serif;
   padding: 0.78rem 1rem;
   transition:
     background 0.15s ease,
@@ -188,14 +188,14 @@ button:focus-visible {
   outline-offset: 3px;
 }
 button:disabled {
-  background: #4c5043;
-  border-color: #4c5043;
-  color: #9a9d91;
+  background: #554361;
+  border-color: #554361;
+  color: #b3a6bd;
   cursor: not-allowed;
 }
 
 .guarantees {
-  border-top: 1px solid #41443a;
+  border-top: 1px solid #4b385b;
   gap: 1rem;
   justify-content: space-between;
   margin-top: 4rem;
@@ -212,17 +212,34 @@ dt {
     monospace;
 }
 dd {
-  color: #b9bab1;
+  color: #c5b9d0;
   font-size: 0.68rem;
   margin: 0;
 }
 footer {
-  border-top: 1px solid #34372d;
+  border-top: 1px solid #3e2d4d;
   bottom: 1.25rem;
   left: clamp(1.5rem, 5vw, 5rem);
   padding-top: 1rem;
   position: absolute;
   right: clamp(1.5rem, 5vw, 5rem);
+}
+.footer-links {
+  align-items: center;
+  display: flex;
+  gap: 1rem;
+}
+.footer-links a {
+  color: #d4fa64;
+  text-decoration: none;
+}
+.footer-links a:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.2rem;
+}
+.footer-links a:focus-visible {
+  outline: 2px solid #d4fa64;
+  outline-offset: 0.25rem;
 }
 .status-dot::before {
   background: #d4fa64;
@@ -264,7 +281,7 @@ footer {
     flex-direction: column;
     gap: 0.75rem;
   }
-  footer span:first-child {
+  .footer-label {
     display: none;
   }
   footer {
