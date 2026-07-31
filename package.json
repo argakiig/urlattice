@@ -9,6 +9,7 @@
     "typecheck": "npm run generate-types && tsc --noEmit && tsc --project tsconfig.cli.json",
     "create": "tsx apps/creator-cli/src/index.ts",
     "configure": "tsx scripts/configure.ts",
+    "key": "tsx scripts/key.ts",
     "test": "vitest run",
     "lint": "eslint .",
     "format:check": "prettier --check \"apps/**/*.ts\" \"packages/**/*.ts\" \"*.{json,jsonc,mjs}\" README.md"
