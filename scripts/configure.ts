@@ -1,5 +1,6 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
+import { decode } from "nostr-tools/nip19";
 
 export interface UrlatticeConfig {
   redirectDomain: string;
@@ -9,18 +10,24 @@ export interface UrlatticeConfig {
 }
 export function parseConfig(value: unknown): UrlatticeConfig {
   const c = value as UrlatticeConfig;
+  let allowedPubkey = c?.allowedPubkey;
+  if (typeof allowedPubkey === "string" && allowedPubkey.startsWith("npub")) {
+    const decoded = decode(allowedPubkey);
+    if (decoded.type === "npub") allowedPubkey = decoded.data as string;
+  }
   if (
     !c ||
     !/^([a-z0-9-]+\.)+[a-z]{2,}$/i.test(c.redirectDomain) ||
     !/^([a-z0-9-]+\.)+[a-z]{2,}$/i.test(c.creatorDomain) ||
     c.redirectDomain === c.creatorDomain ||
-    !/^[0-9a-f]{64}$/.test(c.allowedPubkey) ||
+    typeof allowedPubkey !== "string" ||
+    !/^[0-9a-f]{64}$/.test(allowedPubkey) ||
     !Array.isArray(c.relays) ||
     c.relays.length < 3 ||
     c.relays.some((url) => !url.startsWith("wss://"))
   )
     throw new TypeError("invalid urlattice configuration");
-  return c;
+  return { ...c, allowedPubkey };
 }
 async function main() {
   const index = process.argv.indexOf("--config");
@@ -64,4 +71,5 @@ async function main() {
     JSON.stringify(config) + "\n",
   );
 }
-if (import.meta.url === `file://${resolve(process.argv[1])}`) void main();
+if (process.argv[1] && import.meta.url === `file://${resolve(process.argv[1])}`)
+  void main();
