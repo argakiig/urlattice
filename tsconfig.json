@@ -10,7 +10,7 @@
   },
   "include": [
     "apps/**/*.ts",
-    "packages/*/src/**/*.ts",
+    "packages/protocol/src/**/*.ts",
     "worker-configuration.d.ts"
   ]
 }

@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "wrangler dev",
     "generate-types": "wrangler types --include-env=false",
-    "typecheck": "npm run generate-types && tsc --noEmit",
+    "typecheck": "npm run generate-types && tsc --noEmit && tsc --project tsconfig.relay.json",
     "test": "vitest run",
     "lint": "eslint .",
     "format:check": "prettier --check \"apps/**/*.ts\" \"packages/**/*.ts\" \"*.{json,jsonc,mjs}\" README.md"
