@@ -9,7 +9,7 @@
     "types": ["./worker-configuration.d.ts"]
   },
   "include": [
-    "apps/**/*.ts",
+    "apps/redirector/**/*.ts",
     "packages/*/src/**/*.ts",
     "worker-configuration.d.ts"
   ]

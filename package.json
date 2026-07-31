@@ -6,15 +6,18 @@
   "scripts": {
     "dev": "wrangler dev",
     "generate-types": "wrangler types --include-env=false",
-    "typecheck": "npm run generate-types && tsc --noEmit",
+    "typecheck": "npm run generate-types && tsc --noEmit && tsc --project tsconfig.cli.json",
+    "create": "tsx apps/creator-cli/src/index.ts",
     "test": "vitest run",
     "lint": "eslint .",
     "format:check": "prettier --check \"apps/**/*.ts\" \"packages/**/*.ts\" \"*.{json,jsonc,mjs}\" README.md"
   },
   "devDependencies": {
     "@eslint/js": "10.0.1",
+    "@types/node": "^26.1.2",
     "eslint": "10.8.0",
     "prettier": "3.9.6",
+    "tsx": "^4.23.1",
     "typescript": "5.9.3",
     "typescript-eslint": "8.65.0",
     "vitest": "4.1.10",
