@@ -20,6 +20,8 @@ npm run build
 
 `npm run configure` generates the Worker and creator-console public configuration from the ignored local config file.
 
+Commit the generated `wrangler.jsonc` and `apps/creator-web/public/` files for your instance. They contain only public deployment configuration (your allowed public key, domains, and relays); the private key remains local. GitHub Actions builds and deploys the creator console to GitHub Pages on each push to `main`.
+
 ## Architecture
 
 The redirector is a stateless Cloudflare Worker. It resolves immutable records only when their NIP-01 public key matches `allowedPubkey` from the operator config. The static creator console uses the browser's NIP-07 extension to sign and publish records directly to relays. Neither component stores a private key or has a database binding.
