@@ -28,6 +28,7 @@
     "wrangler": "4.118.0"
   },
   "dependencies": {
+    "@fontsource/lexend": "^5.3.0",
     "nostr-tools": "^2.24.1"
   }
 }

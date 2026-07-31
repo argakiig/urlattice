@@ -3,17 +3,74 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Urlattice</title>
+    <meta name="theme-color" content="#151711" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; connect-src https: wss:; img-src 'self' data:; script-src 'self'; style-src 'self'; base-uri 'none'; form-action 'none'"
+    />
+    <title>Urlattice — Publish a short link</title>
   </head>
   <body>
-    <main>
-      <h1>Urlattice</h1>
-      <p id="status">Connect a Nostr extension.</p>
-      <input id="url" type="url" placeholder="https://example.com" /><button
-        id="publish"
-      >
-        Publish
-      </button>
+    <main class="shell">
+      <header class="masthead">
+        <a class="wordmark" href="/" aria-label="Urlattice home">
+          <span class="mark" aria-hidden="true"><i></i><i></i><i></i></span>
+          <span>urlattice</span>
+        </a>
+        <span class="edition">Personal links, signed</span>
+      </header>
+
+      <section class="creator" aria-labelledby="page-title">
+        <p class="eyebrow">Nostr-native short links</p>
+        <h1 id="page-title">Make a link<br />hold its shape.</h1>
+        <p class="lede">
+          Publish an immutable redirect directly from your Nostr extension. No
+          account, database, or private key leaves your browser.
+        </p>
+
+        <div class="console">
+          <div class="console-heading">
+            <label for="url">Destination</label>
+            <span class="protocol">NIP-07</span>
+          </div>
+          <input
+            id="url"
+            type="url"
+            inputmode="url"
+            autocomplete="url"
+            placeholder="https://example.com/a-very-long-link"
+            aria-describedby="status"
+          />
+          <div class="action-row">
+            <p id="status" role="status" aria-live="polite">
+              Checking your Nostr extension…
+            </p>
+            <button id="publish" type="button">
+              Publish link <span aria-hidden="true">↗</span>
+            </button>
+          </div>
+        </div>
+
+        <dl class="guarantees">
+          <div>
+            <dt>01</dt>
+            <dd>Signed by you</dd>
+          </div>
+          <div>
+            <dt>02</dt>
+            <dd>Published to relays</dd>
+          </div>
+          <div>
+            <dt>03</dt>
+            <dd>Immutable forever</dd>
+          </div>
+        </dl>
+      </section>
+
+      <footer>
+        <span>Urlattice / distributed links</span>
+        <span class="status-dot">Extension required</span>
+      </footer>
     </main>
     <script type="module" src="/src/main.ts"></script>
   </body>

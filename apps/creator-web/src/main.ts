@@ -1,4 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
+import "@fontsource/lexend/latin-400.css";
+import "@fontsource/lexend/latin-500.css";
+import "@fontsource/lexend/latin-600.css";
+import "@fontsource/lexend/latin-700.css";
+import "./style.css";
+
 import {
   canonicalPayload,
   deriveCode,
