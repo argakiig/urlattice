@@ -9,6 +9,8 @@ export interface NostrEvent {
 }
 
 export type RelayStatus = "accepted" | "rejected" | "timeout" | "error";
+export const MAX_EVENTS_PER_RELAY = 32;
+const MAX_RELAY_MESSAGE_BYTES = 64 * 1024;
 
 export interface RelayResult {
   url: string;
@@ -42,7 +44,8 @@ export class NostrRelayClient implements RelayClient {
     return this.connect(url, (socket, done) => {
       socket.send(JSON.stringify(["EVENT", event]));
       socket.addEventListener("message", ({ data }) => {
-        const message = JSON.parse(String(data));
+        const message = parseRelayMessage(data);
+        if (!message) return done("error");
         if (message[0] === "OK") done(message[2] ? "accepted" : "rejected");
       });
     });
@@ -56,9 +59,12 @@ export class NostrRelayClient implements RelayClient {
         JSON.stringify(["REQ", subscription, { kinds: [8003], "#c": [code] }]),
       );
       socket.addEventListener("message", ({ data }) => {
-        const message = JSON.parse(String(data));
-        if (message[0] === "EVENT" && message[1] === subscription)
-          events.push(message[2]);
+        const message = parseRelayMessage(data);
+        if (!message) return done("error");
+        if (message[0] === "EVENT" && message[1] === subscription) {
+          if (events.length === MAX_EVENTS_PER_RELAY) return done("error");
+          events.push(message[2] as NostrEvent);
+        }
         if (message[0] === "EOSE" && message[1] === subscription)
           done("accepted", events);
       });
@@ -75,13 +81,33 @@ export class NostrRelayClient implements RelayClient {
     return new Promise((resolve) => {
       const socket = new WebSocket(url);
       const timer = setTimeout(() => finish("timeout"), this.timeoutMs);
+      let finished = false;
       const finish = (status: RelayStatus, events?: NostrEvent[]) => {
+        if (finished) return;
+        finished = true;
         clearTimeout(timer);
         socket.close();
         resolve({ url, status, events });
       };
-      socket.addEventListener("open", () => action(socket, finish));
+      socket.addEventListener("open", () => {
+        try {
+          action(socket, finish);
+        } catch {
+          finish("error");
+        }
+      });
       socket.addEventListener("error", () => finish("error"));
     });
+  }
+}
+
+function parseRelayMessage(data: unknown): unknown[] | undefined {
+  if (typeof data !== "string" || data.length > MAX_RELAY_MESSAGE_BYTES)
+    return undefined;
+  try {
+    const message: unknown = JSON.parse(data);
+    return Array.isArray(message) ? message : undefined;
+  } catch {
+    return undefined;
   }
 }
