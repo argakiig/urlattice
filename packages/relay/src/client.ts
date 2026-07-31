@@ -1,15 +1,23 @@
-import type { Event } from "nostr-tools";
+export interface NostrEvent {
+  id: string;
+  pubkey: string;
+  created_at: number;
+  kind: number;
+  tags: string[][];
+  content: string;
+  sig: string;
+}
 
 export type RelayStatus = "accepted" | "rejected" | "timeout" | "error";
 
 export interface RelayResult {
   url: string;
   status: RelayStatus;
-  events?: Event[];
+  events?: NostrEvent[];
 }
 
 export interface RelayClient {
-  publish(event: Event): Promise<RelayResult[]>;
+  publish(event: NostrEvent): Promise<RelayResult[]>;
   queryByCode(code: string): Promise<RelayResult[]>;
 }
 
@@ -22,7 +30,7 @@ export class NostrRelayClient implements RelayClient {
       throw new TypeError("at least three relays are required");
   }
 
-  publish(event: Event): Promise<RelayResult[]> {
+  publish(event: NostrEvent): Promise<RelayResult[]> {
     return Promise.all(this.urls.map((url) => this.publishOne(url, event)));
   }
 
@@ -30,7 +38,7 @@ export class NostrRelayClient implements RelayClient {
     return Promise.all(this.urls.map((url) => this.queryOne(url, code)));
   }
 
-  private publishOne(url: string, event: Event): Promise<RelayResult> {
+  private publishOne(url: string, event: NostrEvent): Promise<RelayResult> {
     return this.connect(url, (socket, done) => {
       socket.send(JSON.stringify(["EVENT", event]));
       socket.addEventListener("message", ({ data }) => {
@@ -42,7 +50,7 @@ export class NostrRelayClient implements RelayClient {
 
   private queryOne(url: string, code: string): Promise<RelayResult> {
     return this.connect(url, (socket, done) => {
-      const events: Event[] = [];
+      const events: NostrEvent[] = [];
       const subscription = crypto.randomUUID();
       socket.send(
         JSON.stringify(["REQ", subscription, { kinds: [8003], "#c": [code] }]),
@@ -61,13 +69,13 @@ export class NostrRelayClient implements RelayClient {
     url: string,
     action: (
       socket: WebSocket,
-      done: (status: RelayStatus, events?: Event[]) => void,
+      done: (status: RelayStatus, events?: NostrEvent[]) => void,
     ) => void,
   ): Promise<RelayResult> {
     return new Promise((resolve) => {
       const socket = new WebSocket(url);
       const timer = setTimeout(() => finish("timeout"), this.timeoutMs);
-      const finish = (status: RelayStatus, events?: Event[]) => {
+      const finish = (status: RelayStatus, events?: NostrEvent[]) => {
         clearTimeout(timer);
         socket.close();
         resolve({ url, status, events });
