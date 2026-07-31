@@ -4,6 +4,7 @@ import type { RelayClient } from "../../../packages/relay/src/client.js";
 export async function resolveCode(
   client: RelayClient,
   code: string,
+  allowedPubkey: string,
 ): Promise<Response> {
   const results = await client.queryByCode(code);
   if (!results.some((result) => result.status === "accepted"))
@@ -12,7 +13,11 @@ export async function resolveCode(
   for (const result of results)
     for (const event of result.events ?? []) {
       const parsed = await validateRecordEvent(event);
-      if (parsed.valid && parsed.code === code)
+      if (
+        parsed.valid &&
+        parsed.code === code &&
+        event.pubkey === allowedPubkey
+      )
         destinations.add(parsed.payload.url);
     }
   if (destinations.size === 0)
