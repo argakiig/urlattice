@@ -7,7 +7,6 @@
     "dev": "wrangler dev",
     "generate-types": "wrangler types --include-env=false",
     "typecheck": "npm run generate-types && tsc --noEmit && tsc --project tsconfig.cli.json",
-    "create": "tsx apps/creator-cli/src/index.ts",
     "configure": "tsx scripts/configure.ts",
     "key": "tsx scripts/key.ts",
     "build": "vite build --config apps/creator-web/vite.config.ts",

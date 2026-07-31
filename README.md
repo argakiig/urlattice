@@ -106,7 +106,6 @@ or upload it.
 
 ```text
 apps/redirector/       Cloudflare Worker
-apps/creator-cli/      local creator command
 apps/creator-web/      static NIP-07 creator console
 packages/protocol/     signed record contract
 packages/relay/        Nostr relay transport
