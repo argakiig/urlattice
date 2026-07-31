@@ -1,0 +1,23 @@
+{
+  "name": "urlattice",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "generate-types": "wrangler types --include-env=false",
+    "typecheck": "npm run generate-types && tsc --noEmit",
+    "test": "vitest run",
+    "lint": "eslint .",
+    "format:check": "prettier --check \"apps/**/*.ts\" \"packages/**/*.ts\" \"*.{json,jsonc,mjs}\" README.md"
+  },
+  "devDependencies": {
+    "@eslint/js": "10.0.1",
+    "eslint": "10.8.0",
+    "prettier": "3.9.6",
+    "typescript": "5.9.3",
+    "typescript-eslint": "8.65.0",
+    "vitest": "4.1.10",
+    "wrangler": "4.118.0"
+  }
+}
