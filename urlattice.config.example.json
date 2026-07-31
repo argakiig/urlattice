@@ -1,10 +1,6 @@
 {
-  "redirectDomain": "go.example.com",
-  "creatorDomain": "app.example.com",
+  "redirectDomain": "urlattice.xyz",
+  "creatorDomain": "app.urlattice.xyz",
   "allowedPubkey": "replace-with-64-char-lowercase-hex-pubkey",
-  "relays": [
-    "wss://relay-one.example",
-    "wss://relay-two.example",
-    "wss://relay-three.example"
-  ]
+  "relays": ["wss://nos.lol", "wss://relay.primal.net", "wss://relay.nostr.com"]
 }
