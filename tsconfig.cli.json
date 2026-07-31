@@ -10,6 +10,7 @@
   "include": [
     "apps/creator-cli/src/**/*.ts",
     "packages/protocol/src/**/*.ts",
-    "packages/relay/src/**/*.ts"
+    "packages/relay/src/**/*.ts",
+    "scripts/**/*.ts"
   ]
 }

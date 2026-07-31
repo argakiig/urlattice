@@ -1,0 +1,10 @@
+{
+  "redirectDomain": "go.example.com",
+  "creatorDomain": "app.example.com",
+  "allowedPubkey": "replace-with-64-char-lowercase-hex-pubkey",
+  "relays": [
+    "wss://relay-one.example",
+    "wss://relay-two.example",
+    "wss://relay-three.example"
+  ]
+}
