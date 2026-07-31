@@ -4,6 +4,8 @@ A configurable personal URL shortener backed by signed Nostr records, with no
 hosted link database. A Cloudflare Worker resolves links; a GitHub Pages
 creator console signs and publishes them from a NIP-07 browser extension.
 
+![Urlattice creator console](assets/creator-console.png)
+
 ## Architecture
 
 ```text
