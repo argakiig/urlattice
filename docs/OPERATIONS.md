@@ -30,6 +30,10 @@ curl -i https://urlattice.xyz/<printed-code>
 
 Expect `302` and a `Location` header matching the destination. The Worker must return `404` for a missing code and `503` when every configured relay is unavailable.
 
+## Deployment evidence
+
+On 2026-07-31, `https://urlattice.xyz/AxzJcmighuPxyK` returned `302 Location: https://blog.argakiig.xyz/` from the deployed Cloudflare Worker.
+
 ## Recovery limits
 
 The creator key is stored locally at `$XDG_CONFIG_HOME/urlattice/key` (or `~/.config/urlattice/key`). Back it up securely: losing it does not invalidate published links, but loses provenance for future records. Never commit or upload it.

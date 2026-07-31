@@ -2,7 +2,7 @@
 
 ## Status
 
-Approved. Phase 0 is complete; execute the remaining tasks in order.
+Implemented and deployed on 2026-07-31. The live publish-to-redirect smoke test passed.
 
 ## Overview
 
@@ -160,13 +160,13 @@ runtime + relay choice -> workspace -> protocol -> relay adapter -> redirector
 
 ## Risks
 
-| Risk | Mitigation |
-|---|---|
-| Relays prune or reject events | Validate and publish to at least three actual relays. |
-| Runtime lacks outbound WebSockets | Prove it before bootstrap in Task 0. |
-| Public creation attracts abuse | Begin with a local CLI and no create endpoint. |
-| Collision | Derive 80-bit codes and fail closed with `409`. |
-| Redirect domain outage | Document that records survive but browser links do not. |
+| Risk                              | Mitigation                                              |
+| --------------------------------- | ------------------------------------------------------- |
+| Relays prune or reject events     | Validate and publish to at least three actual relays.   |
+| Runtime lacks outbound WebSockets | Prove it before bootstrap in Task 0.                    |
+| Public creation attracts abuse    | Begin with a local CLI and no create endpoint.          |
+| Collision                         | Derive 80-bit codes and fail closed with `409`.         |
+| Redirect domain outage            | Document that records survive but browser links do not. |
 
 ## Non-goals
 
