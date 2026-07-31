@@ -1,20 +1,27 @@
-# urlattice.xyz
+# Urlattice
 
-Permanent URL redirects backed by signed Nostr records, with no hosted link database.
+A configurable personal URL shortener backed by signed Nostr records, with no hosted link database.
 
 ## Commands
 
 ```sh
-npm install
-npm run dev
+npm ci
+cp urlattice.config.example.json urlattice.config.json
+npm run key
+npm run configure -- --config urlattice.config.json
 npm run test
 npm run typecheck
 npm run lint
 npm run format:check
+npm run build
 ```
 
-`npm run dev` starts the local Cloudflare Worker. Deployment and DNS changes are intentionally not part of local development.
+`npm run key` interactively derives an allowed public key from an existing private key or generates a new key for import into a NIP-07 extension. It never saves private material.
+
+`npm run configure` generates the Worker and creator-console public configuration from the ignored local config file.
 
 ## Architecture
 
-The redirector is a stateless Cloudflare Worker for `urlattice.xyz`. It will resolve immutable, signed records from the relay set documented in [ADR-002](docs/decisions/ADR-002.md). It has no database or durable storage binding.
+The redirector is a stateless Cloudflare Worker. It resolves immutable records only when their NIP-01 public key matches `allowedPubkey` from the operator config. The static creator console uses the browser's NIP-07 extension to sign and publish records directly to relays. Neither component stores a private key or has a database binding.
+
+See [package specification](docs/PACKAGE-SPEC.md) and [operations](docs/OPERATIONS.md).
