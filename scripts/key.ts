@@ -13,7 +13,9 @@ export function parseKey(raw: string): Uint8Array {
   return decoded.data as Uint8Array;
 }
 
-async function promptSecret(message: string): Promise<string> {
+export async function promptSecret(message: string): Promise<string> {
+  if (!input.isTTY)
+    throw new Error("private key input requires an interactive terminal");
   output.write(message);
   input.setRawMode(true);
   input.resume();

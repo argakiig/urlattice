@@ -26,6 +26,7 @@ npm ci
 cp urlattice.config.example.json urlattice.config.json
 npm run key
 npm run configure -- --config urlattice.config.json
+npm run create -- https://example.com --config urlattice.config.json
 npm run test
 npm run typecheck
 npm run lint
@@ -39,6 +40,10 @@ saves private material.
 
 `npm run configure` generates the Worker and creator-console public
 configuration from the ignored local config file.
+
+`npm run create` is the terminal publisher. It asks for the configured private
+key without echoing or saving it, verifies its public key is allowed, then
+prints a short URL only after every configured relay accepts the signed event.
 
 Commit the generated `wrangler.jsonc` and `apps/creator-web/public/` files for
 your instance. They contain only public deployment configuration (your allowed
