@@ -39,11 +39,15 @@ async function initializePublisher() {
   const config = await fetch("/config.json").then(
     (r) =>
       r.json() as Promise<{
+        publisherContractVersion: 1;
+        eventKind: 8003;
+        recordTag: "c";
         allowedPubkey: string;
         relays: string[];
         redirectDomain: string;
       }>,
   );
+  if (config.publisherContractVersion !== 1 || config.eventKind !== 8003 || config.recordTag !== "c") throw new Error("Unsupported publisher contract.");
   status.textContent = "Select Publish to connect your Nostr extension.";
   button.onclick = async () => {
     try {
